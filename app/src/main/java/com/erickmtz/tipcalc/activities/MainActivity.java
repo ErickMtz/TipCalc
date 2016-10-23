@@ -19,6 +19,9 @@ import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.TipCalcApp;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragment;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragmentListener;
+import com.erickmtz.tipcalc.models.TipRecord;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,11 +86,13 @@ public class MainActivity extends AppCompatActivity {
             double total = Double.parseDouble(strInputTotal);
             int tipPercentage = getTipPercentage();
 
-            double tip = total * (tipPercentage/100d);
+            TipRecord record = new TipRecord();
+            record.setBill(total);
+            record.setTipPercentage(tipPercentage);
+            record.setTimestamp(new Date());
 
-            String strTip = String.format(getString(R.string.global_message_tip),tip);
-
-            fragmentListener.action(strTip);
+            String strTip = String.format(getString(R.string.global_message_tip),record.getTip());
+            fragmentListener.addToList(record);
 
             txtTip.setVisibility(View.VISIBLE);
             txtTip.setText(strTip);
@@ -144,6 +149,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (NullPointerException npe){
             Log.e(getLocalClassName(),Log.getStackTraceString(npe));
         }
+    }
+
+    @OnClick(R.id.btnClear)
+    public void deleteItems(){
+        hideKeyboard();
+        fragmentListener.clearList();
     }
 
     private void about() {
