@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btnClear)
-    public void deleteItems(){
+    public void handleClickClear(){
         hideKeyboard();
         fragmentListener.clearList();
     }
