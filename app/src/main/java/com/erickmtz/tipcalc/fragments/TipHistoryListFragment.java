@@ -1,6 +1,7 @@
 package com.erickmtz.tipcalc.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
+import com.erickmtz.tipcalc.activities.Detail;
 import com.erickmtz.tipcalc.adapters.OnItemClickListener;
 import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.adapters.TipAdapter;
@@ -72,6 +75,16 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     @Override
     public void onItemClick(TipRecord tipRecord) {
         // TODO Implementar la lógica para llamar una actividad enviandole la información de la propina
-        Log.v("Mensaje!!!",tipRecord.getDateFormated());
+        Intent intent = new Intent(getActivity(),Detail.class);
+        intent.putExtra(Detail.detailAmount,tipRecord.getBill());
+        intent.putExtra(Detail.detailTip,tipRecord.getTip());
+        intent.putExtra(Detail.detailDate,tipRecord.getDateFormated());
+
+
+        startActivity(intent);
+
+        Log.v("Dinero: ",String.valueOf(tipRecord.getBill()));
+        //Log.v("Propina: ",String.valueOf(tipRecord.getTip()));
+        //Log.v("Fecha: ",tipRecord.getDateFormated());
     }
 }
