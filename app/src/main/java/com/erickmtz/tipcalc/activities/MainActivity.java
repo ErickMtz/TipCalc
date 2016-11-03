@@ -2,7 +2,6 @@ package com.erickmtz.tipcalc.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.input.InputManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +13,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.TipCalcApp;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragment;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragmentListener;
 import com.erickmtz.tipcalc.models.TipRecord;
-
 import java.util.Date;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
