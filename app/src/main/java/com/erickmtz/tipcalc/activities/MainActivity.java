@@ -66,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
         fragmentListener = (TipHistoryListFragmentListener) fragment;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DBTearDown();
+    }
+
+    private void DBTearDown() {
+        FlowManager.destroy();
+    }
+
     private void initDb() {
         FlowManager.init(new FlowConfig.Builder(this).build()); //inicializa la base de datos
         FlowManager.getDatabase(TipsDataBase.class).getWritableDatabase(); //abre la base de datos
