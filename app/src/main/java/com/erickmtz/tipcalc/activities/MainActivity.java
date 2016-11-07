@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.FloatProperty;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.TipCalcApp;
+import com.erickmtz.tipcalc.db.TipsDataBase;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragment;
 import com.erickmtz.tipcalc.fragments.TipHistoryListFragmentListener;
-import com.erickmtz.tipcalc.models.TipRecord;
+import com.erickmtz.tipcalc.entity.TipRecord;
+import com.erickmtz.tipcalc.utils.TipUtils;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,11 +57,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        initDb();
+
         TipHistoryListFragment fragment =(TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
 
         fragment.setRetainInstance(true);
 
         fragmentListener = (TipHistoryListFragmentListener) fragment;
+    }
+
+    private void initDb() {
+        FlowManager.init(new FlowConfig.Builder(this).build()); //inicializa la base de datos
+        FlowManager.getDatabase(TipsDataBase.class).getWritableDatabase(); //abre la base de datos
     }
 
     @Override
@@ -87,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             record.setTipPercentage(tipPercentage);
             record.setTimestamp(new Date());
 
-            String strTip = String.format(getString(R.string.global_message_tip),record.getTip());
+            String strTip = String.format(getString(R.string.global_message_tip), TipUtils.getTip(record));
             fragmentListener.addToList(record);
 
             txtTip.setVisibility(View.VISIBLE);

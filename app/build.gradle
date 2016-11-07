@@ -30,6 +30,7 @@ dependencies {
 
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
 
+
     apt "com.github.Raizlabs.DBFlow:dbflow-processor:$rootProject.ext.dbflow_version"
     // use kapt for kotlin apt
     compile "com.github.Raizlabs.DBFlow:dbflow-core:$rootProject.ext.dbflow_version"

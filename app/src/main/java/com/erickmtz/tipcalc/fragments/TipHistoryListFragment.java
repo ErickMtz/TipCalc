@@ -10,17 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.erickmtz.tipcalc.activities.Detail;
 import com.erickmtz.tipcalc.adapters.OnItemClickListener;
 import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.adapters.TipAdapter;
-import com.erickmtz.tipcalc.models.TipRecord;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.erickmtz.tipcalc.entity.TipRecord;
+import com.erickmtz.tipcalc.utils.TipUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -76,9 +72,9 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     public void onItemClick(TipRecord tipRecord) {
         // TODO Implementar la lógica para llamar una actividad enviandole la información de la propina
         Intent intent = new Intent(getActivity(),Detail.class);
-        intent.putExtra(Detail.detailAmount,tipRecord.getBill());
-        intent.putExtra(Detail.detailTip,tipRecord.getTip());
-        intent.putExtra(Detail.detailDate,tipRecord.getDateFormated());
+        intent.putExtra(Detail.detailAmount, tipRecord.getBill());
+        intent.putExtra(Detail.detailTip, TipUtils.getTip(tipRecord));
+        intent.putExtra(Detail.detailDate,TipUtils.getDateFormated(tipRecord));
 
 
         startActivity(intent);
