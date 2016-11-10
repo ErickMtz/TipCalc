@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.erickmtz.tipcalc.R;
 import com.erickmtz.tipcalc.entity.TipRecord;
 import com.erickmtz.tipcalc.utils.TipUtils;
+import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class TipAdapter extends RecyclerView.Adapter <TipAdapter.ViewHolder>{
     }
 
     public void clear(){
-        dataset.clear();
+        dataset = new Delete().from(TipRecord.class).queryList();
         notifyDataSetChanged();
     }
 
