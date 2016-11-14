@@ -7,9 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.erickmtz.tipcalc.R;
+import com.erickmtz.tipcalc.db.TipsDataBase;
 import com.erickmtz.tipcalc.entity.TipRecord;
+import com.erickmtz.tipcalc.entity.TipRecord_Table;
 import com.erickmtz.tipcalc.utils.TipUtils;
 import com.raizlabs.android.dbflow.sql.language.Delete;
+import com.raizlabs.android.dbflow.sql.language.NameAlias;
+import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
@@ -64,9 +68,9 @@ public class TipAdapter extends RecyclerView.Adapter <TipAdapter.ViewHolder>{
     }
 
     public void add(TipRecord record) {
-        //dataset.add(0,record);
         record.save();
-        dataset = new Select().from(TipRecord.class).queryList();
+
+        dataset = new Select().from(TipRecord.class).where().orderBy(TipRecord_Table.id,false).queryList();
         notifyDataSetChanged();
     }
 
